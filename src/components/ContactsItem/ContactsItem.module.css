@@ -1,0 +1,17 @@
+.item {
+  display: flex;
+}
+
+.name {
+  font-size: large;
+}
+
+.button {
+  text-align: center;
+  height: 20px;
+  padding: 10px;
+  margin: 20px 10px;
+  display: flex;
+  align-items: center;
+  border: blue 2px solid;
+}
