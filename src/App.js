@@ -127,3 +127,4 @@ App.defaultProps = {
   filter: '',
   showNoty: false,
 }
+// new
