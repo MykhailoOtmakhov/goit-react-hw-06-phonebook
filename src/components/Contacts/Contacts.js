@@ -1,21 +1,31 @@
 import React from 'react';
 import ContactsItem from '../ContactsItem/ContactsItem';
 import PropTypes from 'prop-types'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import styles from './Contacts.module.css'
 
-function Contacts ({contacts,onRemoveContact}){
+const Contacts = ({contacts,onRemoveContact}) => {
     return(
-        <div>
-            <ul>
+        <TransitionGroup 
+            component="ul" 
+            className="ContactsList"
+            >
+                <h2>Contacts</h2>
                 {contacts.map(({id,name,number})=>(
-                    <ContactsItem 
+                    <CSSTransition 
                         key={id}
-                        name={name}
-                        number={number}
-                        onRemove={()=>onRemoveContact(id)}
-                    />
+                        timeout={2500}
+                        classNames={styles}
+                        >
+                        <ContactsItem 
+                            id={id}
+                            name={name}
+                            number={number}
+                            onRemove={()=>onRemoveContact(id)}
+                        />
+                    </CSSTransition>
                 ))}
-            </ul>                
-        </div>
+        </TransitionGroup>                       
     )
 }
 Contacts.propTypes={

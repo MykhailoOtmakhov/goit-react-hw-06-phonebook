@@ -1,5 +1,10 @@
 .item {
   display: flex;
+  width: 400px;
+  border: ridge 5px blueviolet;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
 }
 
 .name {
@@ -14,4 +19,5 @@
   display: flex;
   align-items: center;
   border: blue 2px solid;
-}
+} 
+

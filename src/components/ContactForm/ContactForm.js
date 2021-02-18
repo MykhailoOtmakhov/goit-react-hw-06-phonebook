@@ -33,7 +33,9 @@ export default class ContactForm extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form 
+                  onSubmit={this.handleSubmit}
+                  className={styles.form}>
                   <label 
                     className={styles.label}
                     htmlFor={this.nameInputId}>

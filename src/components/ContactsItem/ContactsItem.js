@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './ContactsItem.module.css';
 import PropTypes from 'prop-types'
+// import styles from './Contacts.module.css'
 
 const ContactsItem = ({name, number, onRemove})=>(
-    <li className={styles.item}>
+    <li 
+    className={styles.item}
+    >
         <p 
         className={styles.name}>
             {name}-{number}</p>
@@ -12,15 +15,15 @@ const ContactsItem = ({name, number, onRemove})=>(
             onClick={onRemove}> 
             Delete
         </button>
-    </li>
- ) 
- ContactsItem.propTypes={
-     name: PropTypes.string,
-     number: PropTypes.string,
- }
- ContactsItem.defaultProps = {
-    name: '',
-    number: '',
- }
+    </li>  
+) 
+ContactsItem.propTypes={
+    name: PropTypes.string,
+    number: PropTypes.string,
+}
+ContactsItem.defaultProps = {
+   name: '',
+   number: '',
+}
 export default ContactsItem;
     
