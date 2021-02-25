@@ -3,6 +3,9 @@ import ContactsItem from '../ContactsItem/ContactsItem';
 import PropTypes from 'prop-types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import styles from './Contacts.module.css'
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/contacts-actions'
+
 
 const Contacts = ({contacts,onRemoveContact}) => {
     return(
@@ -33,9 +36,26 @@ Contacts.propTypes={
     name:PropTypes.string,
     number:PropTypes.string,
 }
-Contacts.defaultProps = {
-    id: '',
-    name: '',
-    number: '',
+// Contacts.defaultProps = {
+//     id: '',
+//     name: '',
+//     number: '',
+// }
+
+const getVisibleContacts=(allContacts, filter) => {
+  const normalizedFilter = filter.toLowerCase();
+
+  return allContacts.filter(({name})=>
+    name.toLowerCase().includes(normalizedFilter),
+  )
 }
-export default Contacts;
+
+const mapStateToProps =({ contacts: { items, filter } })=> ({
+    contacts: getVisibleContacts(items, filter),
+})
+
+const mapDispatchToProps = dispatch => ({
+    onRemoveContact: (id) => dispatch(contactsActions.removeContact(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contacts)
