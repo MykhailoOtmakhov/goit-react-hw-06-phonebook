@@ -6,7 +6,6 @@ import styles from './Contacts.module.css'
 import { connect } from 'react-redux';
 import contactsActions from '../../redux/contacts-actions'
 
-
 const Contacts = ({contacts,onRemoveContact}) => {
     return(
         <TransitionGroup 

@@ -11,9 +11,8 @@ class ContactForm extends Component {
           number: '',   
     }
 
-
-    nameInputId = uuidv4();
-    numberInputId = uuidv4();
+    // nameInputId = uuidv4();
+    // numberInputId = uuidv4();
 
     handleInputChange=evt=>{
       const {name, value}= evt.currentTarget;

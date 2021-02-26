@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import ContactForm from './components/ContactForm/ContactForm';
 import Contacts from './components/Contacts/Contacts';
 import Filter from './components/Filter/Filter';
@@ -8,6 +7,7 @@ import './App.css'
 import Header from './components/Header/Header.js';
 import Notification from './components/Notification/Notification'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 
 class App extends Component {
@@ -16,21 +16,6 @@ class App extends Component {
   state = {
     showNoty: false,
   }
-
-  // componentDidMount(){
-  //   const savedContacts = localStorage.getItem('contacts');
-  //   if(savedContacts){
-  //     this.setState({
-  //       contacts: JSON.parse(savedContacts),
-  //     })
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps, prevState){
-  //   if(prevState.contacts !==this.state.contacts){
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
 
   // addContact=({name, number})=>{
   //   const contact = {
@@ -49,67 +34,37 @@ class App extends Component {
   //   }
   // }    
 
-  // removeContact=contactId=>{
-  //   this.setState(prevState=>{
-  //     return{
-  //         contacts: prevState.contacts.filter(({id})=>id !== contactId),
-  //         filter: '',
-  //     }
-  //   })      
-  // }
-
-  // changeFilter=e=>{
-  //   this.setState({filter: e.currentTarget.value})
-  // }
-
   formSubmitHandler=data=>{
     console.log(data);
   }
 
-  // getVisibleContacts=()=>{
-  //   const{filter, contacts} = this.state;
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return contacts.filter(contact=>
-  //     contact.name.toLowerCase().includes(normalizedFilter),
-  //   )
-  // }
-
   render() {
-    const {showNoty}=this.state;
-    // const visibleContacts = this.getVisibleContacts();
+    const { showNoty }=this.state;
     return(
       <div>
-        {/* <CSSTransition
+        <CSSTransition
           in={showNoty} 
           timeout={250}
           classNames="notification"
           unmountOnExit>
             <Notification />
-        </CSSTransition> */}
+        </CSSTransition>
         <Header />
-        <ContactForm 
-          // onSubmit={this.addContact}
-        />
-        {/* <CSSTransition 
-          in={contacts.length>1}
+        <ContactForm />
+        <CSSTransition 
+          in={this.props.contacts.length>1}
           timeout={250}
           classNames="container"
-          unmountOnExit> */}
-            <Filter 
-              // value={filter}
-              // onChange={this.changeFilter}
-            />
-        {/* </CSSTransition> */}
-        {/* <CSSTransition 
-          in={contacts.length>0}
+          unmountOnExit>
+            <Filter/>
+        </CSSTransition>
+        <CSSTransition 
+          in={this.props.contacts.length>0}
           timeout={250}
           classNames="container"
-          unmountOnExit> */}
-            <Contacts 
-              // contacts={visibleContacts}
-              // onRemoveContact={this.removeContact} 
-            />
-        {/* </CSSTransition>        */}
+          unmountOnExit>
+            <Contacts />
+        </CSSTransition>       
       </div>
     )
   }
@@ -127,4 +82,8 @@ App.defaultProps = {
   showNoty: false,
 }
 
-export default App
+const mapStateToProps = (state) => ({
+  contacts: state.contacts.items,
+})
+
+export default connect(mapStateToProps, null)(App)
