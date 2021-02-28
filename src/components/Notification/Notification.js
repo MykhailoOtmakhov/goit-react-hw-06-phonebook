@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './Notification.module.css';
 
-const Notification = () => (
+const Notification = ({message}) => (
     <div className={styles.notificationContainer}>
-        <p className={styles.text}>This contact is already exist!</p>
+        <p className={styles.text}>{message}</p>
     </div>
 )
 

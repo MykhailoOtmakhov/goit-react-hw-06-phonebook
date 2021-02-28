@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import styles from './ContactForm.module.css';
 import { connect } from 'react-redux';
 import contactsActions from '../../redux/contacts-actions'
+import Notification from '../Notification/Notification'
+import { CSSTransition } from 'react-transition-group'
+
 
 
 class ContactForm extends Component {
     state = {
           name: '',
-          number: '',   
+          number: '',
+          message: null,   
     }
-
-    // nameInputId = uuidv4();
-    // numberInputId = uuidv4();
 
     handleInputChange=evt=>{
       const {name, value}= evt.currentTarget;
@@ -21,9 +21,32 @@ class ContactForm extends Component {
       })
     }
 
+    getNoty = (note) => {
+      this.setState({message: note});
+      setTimeout(()=> {
+        this.setState({ message: null});
+      }, 2500)
+    }
+
     handleSubmit=evt=>{
+        const { name, number } = this.state;
         evt.preventDefault();
-        console.log(this.state);
+
+        if (this.props.contacts.items.find((item) => item.name.toLowerCase() === this.state.name.toLowerCase())) {
+          this.getNoty('This contact is already exist!');
+          return;
+        }
+        
+        if (name ===''){
+          this.getNoty('Enter the name!');
+          return;
+        }
+
+        if (number ===''){
+          this.getNoty('Enter the number!');
+          return;
+        }
+
         this.props.onSubmit(this.state);
         this.reset()
     }
@@ -33,52 +56,65 @@ class ContactForm extends Component {
     }
     
     render() {
+      const { message }= this.state;
         return (
-            <div>
-                <form 
-                  onSubmit={this.handleSubmit}
-                  className={styles.form}>
-                  <label 
-                    className={styles.label}
-                    htmlFor={this.nameInputId}>
-                        Name
-                    <input 
-                      className={styles.input}
-                      type="text"
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.handleInputChange}
-                      id={this.nameInputId}
-                    />
-                  </label>
-                  <label 
-                  className={styles.label}
-                  htmlFor={this.numberInputId}>
-                      Number
-                    <input 
-                      className={styles.input}
-                      type="tel"
-                      name="number"
-                      value={this.state.number}
-                      onChange={this.handleInputChange}
-                      id={this.numberInputId}
-                    />
-                  </label>
-                  <button 
-                    className={styles.button}
-                    type="submit" 
-                    onClick={this.handleSubmit}
-                  >
-                    Add contact
-                  </button>
-                </form>
-            </div>
+          <div>
+            <CSSTransition
+              in={message} 
+              timeout={250}
+              classNames="notification"
+              unmountOnExit>
+                <Notification message={this.state.message}/>
+            </CSSTransition>
+            <form 
+              onSubmit={this.handleSubmit}
+              className={styles.form}>
+              <label 
+                className={styles.label}
+                htmlFor={this.nameInputId}>
+                    Name
+                <input 
+                  className={styles.input}
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleInputChange}
+                  id={this.nameInputId}
+                />
+              </label>
+              <label 
+              className={styles.label}
+              htmlFor={this.numberInputId}>
+                  Number
+                <input 
+                  className={styles.input}
+                  type="tel"
+                  name="number"
+                  value={this.state.number}
+                  onChange={this.handleInputChange}
+                  id={this.numberInputId}
+                />
+              </label>
+              <button 
+                className={styles.button}
+                type="submit" 
+                onClick={this.handleSubmit}
+              >
+                Add contact
+              </button>
+            </form>
+          </div>
         )
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: ({name,number}) => dispatch(contactsActions.addContact(name,number))
+const mapStateToProps = (state) => ({
+  contacts: state.contacts,
 })
-export default connect(null, mapDispatchToProps)(ContactForm)
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: ({name,number,message}) => dispatch(contactsActions.addContact(name,number,message))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm)
 
