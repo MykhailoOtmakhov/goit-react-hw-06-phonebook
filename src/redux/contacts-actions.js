@@ -10,7 +10,11 @@ const addContact = createAction('contacts/Add', (name,number,message) => ({
     }
 }));
 
-const removeContact = createAction('contacts/Remove');
+const removeContact = createAction('contacts/Remove')
+// (filter) => ({
+//     payload: 
+// }));
+
 
 const changeFilter = createAction('contacts/ChangeFilter');
 
