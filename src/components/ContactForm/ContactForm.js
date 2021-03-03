@@ -5,8 +5,6 @@ import contactsActions from '../../redux/contacts-actions'
 import Notification from '../Notification/Notification'
 import { CSSTransition } from 'react-transition-group'
 
-
-
 class ContactForm extends Component {
     state = {
           name: '',

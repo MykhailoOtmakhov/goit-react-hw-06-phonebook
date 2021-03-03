@@ -6,7 +6,7 @@ import styles from './Contacts.module.css'
 import { connect } from 'react-redux';
 import contactsActions from '../../redux/contacts-actions'
 
-const Contacts = ({contacts,onRemoveContact,clearFilterOnRemove}) => {
+const Contacts = ({contacts,onRemoveContact}) => {
     return(
         <TransitionGroup 
             component="ul" 
@@ -23,9 +23,7 @@ const Contacts = ({contacts,onRemoveContact,clearFilterOnRemove}) => {
                             id={id}
                             name={name}
                             number={number}
-                            onRemove={()=>onRemoveContact((id),clearFilterOnRemove())
-                                
-                            }
+                            onRemove={()=>onRemoveContact(id)}
                         />
                     </CSSTransition>
                     
@@ -52,8 +50,7 @@ const mapStateToProps =({ contacts: { items, filter } })=> ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    onRemoveContact: (id) => dispatch(contactsActions.removeContact(id)),
-    clearFilterOnRemove: () => dispatch(contactsActions.changeFilter(''))
+    onRemoveContact: (id) => dispatch(contactsActions.removeContact(id),dispatch(contactsActions.changeFilter('')))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts)
