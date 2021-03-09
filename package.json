@@ -1,5 +1,5 @@
 {
-  "name": "goit-react-hw-06-phonebook",
+  "name": "goit-react-hw-07-phonebook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,13 +30,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://MykhailoOtmakhov.github.io/goit-react-hw-06-phonebook.git"
+    "url": "git+https://MykhailoOtmakhov.github.io/goit-react-hw-07-phonebook.git"
   },
   "keywords": [],
   "author": " ",
   "license": "ISC",
   "bugs": {
-    "url": "https://MykhailoOtmakhov.github.io/goit-react-hw-06-phonebook"
+    "url": "https://MykhailoOtmakhov.github.io/goit-react-hw-07-phonebook"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
